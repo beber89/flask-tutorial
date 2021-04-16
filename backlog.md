@@ -11,4 +11,5 @@
   * $ pip freeze > requirements.txt
   * $ heroku create todoappnameflask
   * $ git push master
-  
+  * Procfile
+    * web: gunicorn app:app
