@@ -17,6 +17,10 @@
   ```
   * $ python3 app.py
   * `return "<h2>Hello World</h2>"`
+  * create template -> then do `render_template("index.html")`
+* import sqlalchemy -> then config sql
+
+
 * Create database:
   * in python shell import db from app
   * $ db.create_all()
