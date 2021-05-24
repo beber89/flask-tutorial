@@ -1,10 +1,22 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from sklearn import linear_model
+import pickle
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///datadev.db'
 db = SQLAlchemy(app)
+
+## Load model
+# now to save the model as serialized object pickle
+loaded_model = linear_model.LinearRegression()
+
+#now we weill load the saved model
+with open('model/mysaved_md_pickle', 'rb') as file:
+    loaded_model = pickle.load(file)
+
+## ----------
 
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -30,6 +42,15 @@ def index():
         tasks = Todo.query.order_by(Todo.date_created).all()
         return render_template('index.html', tasks=tasks)
     return render_template("index.html")
+
+@app.route('/datascience', methods=['POST', 'GET'])
+def datascience():
+    if request.method == 'POST':
+        area = request.form['areavalue']
+        predicted_price = int(loaded_model.predict([[area]])[0])
+        return render_template('datascience.html', areavalue=area, predicted_price=predicted_price)
+    else:
+        return render_template('datascience.html')
 
 @app.route('/delete/<int:id>')
 def delete(id):

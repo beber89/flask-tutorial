@@ -1,0 +1,18 @@
+{%extends 'base.html'%}
+
+{%block head%}
+<title>Datascience App</title>
+{% endblock %}
+
+{%block body%}
+<div class="content">
+    <h1 style="text-align: center">Predict price</h1>
+    <form action="/datascience" method="POST">
+        <input type="number" name="areavalue" value="{{areavalue}}">
+        <input type="submit" value="Predict price">
+    </form>
+</div>
+<div class="content">
+    <h2 style="text-align: center">Price: {{predicted_price}}</h2>
+</div>
+{% endblock %}

@@ -12,5 +12,5 @@ model.fit(df[['area']],df.price)
 
 # now to save the model as serialized object pickle
 
-with open('mysaved_md_pickle', 'wb') as file:
+with open('model/mysaved_md_pickle', 'wb') as file:
     pickle.dump(model,file)
